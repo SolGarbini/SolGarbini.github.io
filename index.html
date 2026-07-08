@@ -3,46 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preservar la Inocencia - Interacción</title>
+    <title>El Laberinto de la Inocencia</title>
     <style>
-        body { background: #101020; color: white; font-family: sans-serif; padding: 30px; text-align: center; }
-        .control { margin-bottom: 40px; }
-        input[type=range] { width: 80%; max-width: 300px; height: 15px; }
-        h2 { font-weight: 300; color: #6ab4e1; }
+        /* Estética Grunge Psicodélica / Romántica */
+        body { 
+            background: #0d0c12; 
+            color: #e4ef00; 
+            font-family: 'Georgia', serif; 
+            padding: 40px 20px; 
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        
+        h2 { 
+            font-weight: 300; 
+            font-style: italic;
+            color: #ff6afa; 
+            text-shadow: 0 0 10px rgba(255, 106, 250, 0.5);
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .bajada {
+            color: #6ab4e1;
+            font-size: 0.9rem;
+            font-style: italic;
+            margin-bottom: 50px;
+            opacity: 0.8;
+        }
+
+        .control { 
+            margin-bottom: 55px; 
+            position: relative;
+        }
+
+        label {
+            font-size: 1.05rem;
+            color: #f9f5e0;
+            display: block;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        /* Modificación estética de los Sliders para hacerlos orgánicos */
+        input[type=range] { 
+            -webkit-appearance: none;
+            width: 85%; 
+            max-width: 320px; 
+            background: rgba(114, 152, 128, 0.3);
+            height: 4px;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        /* El botón deslizante como una pequeña gota de luz difusa */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #ff781e;
+            cursor: pointer;
+            box-shadow: 0 0 8px #ff781e, 0 0 15px #ff6afa;
+            transition: transform 0.1s;
+        }
+
+        input[type=range]::-webkit-slider-thumb:active {
+            transform: scale(1.3);
+        }
+
+        .metaforas {
+            display: flex;
+            justify-content: space-between;
+            width: 85%;
+            max-width: 320px;
+            margin: 8px auto 0 auto;
+            font-size: 0.75rem;
+            color: #729880;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
-    <h2>Altera el Entorno</h2>
-    <p>Modifica la realidad para proteger el juego de la niña.</p>
-    <br>
+
+    <h2>Ceci n'est pas un jeu</h2>
+    <div class="bajada">Un instante suspendido entre la mirada del mundo y el deseo de desaparecer.</div>
 
     <div class="control">
-        <label>Mirada Adulta (Fragmentación)</label><br><br>
+        <label>La densidad de las miradas ajenas</label>
         <input type="range" id="mirada" min="1" max="15" value="5" oninput="enviarDatos()">
+        <div class="metaforas">
+            <span>Intimidad</span>
+            <span>Estructura / Fragmentación</span>
+        </div>
     </div>
 
     <div class="control">
-        <label>Ritmo del Tiempo Exterior</label><br><br>
+        <label>El compás del tiempo impuesto</label>
         <input type="range" id="ritmo" min="2" max="60" value="10" oninput="enviarDatos()">
+        <div class="metaforas">
+            <span>Suspensión</span>
+            <span>Urgencia / Reloj</span>
+        </div>
     </div>
 
     <div class="control">
-        <label>Fuerza del Imaginario (Niña)</label><br><br>
+        <label>La voluntad de volar</label>
         <input type="range" id="imaginario" min="1" max="8" value="3" step="0.5" oninput="enviarDatos()">
+        <div class="metaforas">
+            <span>Aferrarse a la tierra</span>
+            <span>Soltarse / Desvanecer</span>
+        </div>
     </div>
 
     <script>
-        // PEGA AQUÍ TU URL DE FIREBASE TERMINADA EN /interaccion.json
+        // Tu URL de Firebase sigue siendo exactamente la misma
         const FIREBASE_URL = "https://final-labo-1-default-rtdb.firebaseio.com/interaccion.json";
 
         function enviarDatos() {
             let datos = {
+                // Mantenemos los mismos nombres técnicos por detrás para que p5.js los entienda
                 miradaAdulta: Number(document.getElementById('mirada').value),
                 ritmoDelJuego: Number(document.getElementById('ritmo').value),
                 fuerzaImaginario: Number(document.getElementById('imaginario').value)
             };
 
-            // Enviamos los datos al pizarrón de internet usando el método PUT (reemplazar)
             fetch(FIREBASE_URL, {
                 method: "PUT",
                 body: JSON.stringify(datos)
