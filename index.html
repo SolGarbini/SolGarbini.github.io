@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Laberinto de la Inocencia</title>
     <style>
-        /* Estética Grunge Psicodélica / Romántica */
         body { 
             background: #0d0c12; 
             color: #e4ef00; 
@@ -45,7 +44,6 @@
             text-shadow: 1px 1px 2px #000;
         }
 
-        /* Modificación estética de los Sliders para hacerlos orgánicos */
         input[type=range] { 
             -webkit-appearance: none;
             width: 85%; 
@@ -56,7 +54,6 @@
             outline: none;
         }
 
-        /* El botón deslizante como una pequeña gota de luz difusa */
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
@@ -87,38 +84,37 @@
 </head>
 <body>
 
-    <h2>Ceci n'est pas un jeu</h2>
+    <h2>Fly</h2>
     <div class="bajada">Un instante suspendido entre la mirada del mundo y el deseo de desaparecer.</div>
 
     <div class="control">
-        <label>La densidad de las miradas ajenas</label>
+        <label>La mirada ajena</label>
         <input type="range" id="mirada" min="1" max="15" value="5" oninput="enviarDatos()">
         <div class="metaforas">
-            <span>Intimidad</span>
-            <span>Estructura / Fragmentación</span>
+            <span>Incomoda</span>
+            <span>Estructura</span>
         </div>
     </div>
 
     <div class="control">
-        <label>El compás del tiempo impuesto</label>
+        <label>El tiempo</label>
         <input type="range" id="ritmo" min="2" max="60" value="10" oninput="enviarDatos()">
         <div class="metaforas">
-            <span>Suspensión</span>
-            <span>Urgencia / Reloj</span>
+            <span>Es suspensible</span>
+            <span>Es una urgencia / Reloj</span>
         </div>
     </div>
 
     <div class="control">
-        <label>La voluntad de volar</label>
+        <label>Frente al cambio</label>
         <input type="range" id="imaginario" min="1" max="8" value="3" step="0.5" oninput="enviarDatos()">
         <div class="metaforas">
-            <span>Aferrarse a la tierra</span>
-            <span>Soltarse / Desvanecer</span>
+            <span>Me aferro</span>
+            <span>Decido soltar</span>
         </div>
     </div>
 
     <script>
-        // Tu URL de Firebase sigue siendo exactamente la misma
         const FIREBASE_URL = "https://final-labo-1-default-rtdb.firebaseio.com/interaccion.json";
 
         function enviarDatos() {
