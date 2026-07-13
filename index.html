@@ -3,73 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitácora de Cuerpos Suspendidos</title>
+    <title>Anatomía de una suspensión</title>
     <style>
         body { 
-            background: #140f1e; /* Violeta denso base de tu paleta */
-            color: #d0d074; /* Amarillo manteca naíf vintage */
+            background: #0d0c12; 
+            color: #d8cba9; 
             font-family: 'Georgia', serif; 
             padding: 40px 20px; 
             text-align: center;
             letter-spacing: 1px;
+            line-height: 1.6;
         }
         
         h2 { 
             font-weight: 300; 
             font-style: italic;
-            color: #ff6afa; /* Lila encendido */
-            text-shadow: 0 0 10px rgba(255, 106, 250, 0.4);
-            font-size: 1.8rem;
+            color: #d4a373; 
+            font-size: 1.6rem;
             margin-bottom: 5px;
         }
 
         .bajada {
-            color: #729880; /* Verde pálido de las bolsas */
+            color: #729880; 
             font-size: 0.9rem;
             font-style: italic;
             margin-bottom: 50px;
-            opacity: 0.9;
-            padding: 0 10px;
-            line-height: 1.4;
+            opacity: 0.8;
+            padding: 0 15px;
         }
 
         .control { 
             margin-bottom: 55px; 
-            position: relative;
         }
 
         label {
-            font-size: 1.05rem;
-            color: #f9f5e0;
+            font-size: 1rem;
+            color: #eae5d9;
             display: block;
             margin-bottom: 15px;
-            text-shadow: 1px 1px 2px #000;
         }
 
         input[type=range] { 
             -webkit-appearance: none;
             width: 85%; 
             max-width: 320px; 
-            background: rgba(114, 152, 128, 0.3);
-            height: 4px;
-            border-radius: 2px;
+            background: rgba(114, 152, 128, 0.2);
+            height: 3px;
             outline: none;
         }
 
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 18px;
-            height: 18px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
-            background: #a6690e; /* Ocre/Oro de la paleta */
+            background: #d4a373; 
             cursor: pointer;
-            box-shadow: 0 0 8px #a6690e, 0 0 15px #ff6afa;
-            transition: transform 0.1s;
-        }
-
-        input[type=range]::-webkit-slider-thumb:active {
-            transform: scale(1.3);
+            box-shadow: 0 0 8px rgba(212, 163, 115, 0.6);
         }
 
         .metaforas {
@@ -79,49 +70,50 @@
             max-width: 320px;
             margin: 8px auto 0 auto;
             font-size: 0.75rem;
-            color: #729880;
+            color: #8c8270;
             font-style: italic;
         }
     </style>
 </head>
 <body>
 
-    <h2>Un registro de cuerpos suspendidos</h2>
-    <div class="bajada">¿Cuánto pesan los brazos cuando decidimos no tocar la tierra? Intervení la marea de la danza.</div>
+    <h2>Anatomía de una suspensión</h2>
+    <div class="bajada">¿Cómo se siente habitar un cuerpo que flota? Intervení el archivo de la danza.</div>
 
     <div class="control">
-        <label>La densidad del espacio</label>
-        <input type="range" id="mirada" min="1" max="10" value="5" oninput="enviarDatos()">
+        <label>¿Cómo percibís tu propio peso hoy?</label>
+        <input type="range" id="tamanio" min="1" max="10" value="4" oninput="enviarDatos()">
         <div class="metaforas">
-            <span>Cuerpo entero</span>
-            <span>Fragmentos</span>
+            <span>Sólido y compacto</span>
+            <span>Leve e ingrávido</span>
         </div>
     </div>
 
     <div class="control">
-        <label>La cadencia de la caída</label>
-        <input type="range" id="ritmo" min="2" max="25" value="10" oninput="enviarDatos()">
+        <label>¿A qué velocidad cae un recuerdo?</label>
+        <input type="range" id="velocidad" min="1" max="10" value="5" oninput="enviarDatos()">
         <div class="metaforas">
-            <span>Vértigo</span>
-            <span>Suspensión</span>
+            <span>Un abismo rápido</span>
+            <span>Una caída pausada</span>
         </div>
     </div>
 
     <div class="control">
-        <label>La maduración de la paleta</label>
-        <input type="range" id="imaginario" min="1" max="10" value="3" step="0.5" oninput="enviarDatos()">
+        <label>¿Qué tan cerca querés estar de esta danza?</label>
+        <input type="range" id="filtro" min="1" max="10" value="5" step="0.5" oninput="enviarDatos()">
         <div class="metaforas">
-            <span>Tono Original</span>
-            <span>Atardecer Saturado</span>
+            <span>Mimetizarse en el fondo</span>
+            <span>Aproximarse al detalle</span>
         </div>
     </div>
 
     <div class="control">
-        <label>El eje del equilibrio</label>
-        <input type="range" id="rotacion" min="0" max="10" value="0" step="0.1" oninput="enviarDatos()">
+        <label>¿Cuál es la textura de tu entorno?</label>
+        <input type="range" id="rotacion" min="1" max="10" value="1" step="1" oninput="enviarDatos()">
         <div class="metaforas">
-            <span>Raíces quietas</span>
-            <span>Giro onírico</span>
+            <span>Tierra y Hueso</span>
+            <span>Verde Té</span>
+            <span>Violeta Penumbra</span>
         </div>
     </div>
 
@@ -130,9 +122,9 @@
 
         function enviarDatos() {
             let datos = {
-                tamanioCuadricula: Number(document.getElementById('mirada').value),
-                velAnimacion: Number(document.getElementById('ritmo').value),
-                opacidadFiltro: Number(document.getElementById('imaginario').value),
+                tamanioCuadricula: Number(document.getElementById('tamanio').value),
+                velAnimacion: Number(document.getElementById('velocidad').value),
+                opacidadFiltro: Number(document.getElementById('filtro').value),
                 rotacionImagen: Number(document.getElementById('rotacion').value)
             };
 
