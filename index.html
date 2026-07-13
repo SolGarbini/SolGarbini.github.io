@@ -119,19 +119,28 @@
 
     <script>
         const FIREBASE_URL = "https://final-labo-1-default-rtdb.firebaseio.com/interaccion.json";
+        let timeoutEnvio;
 
         function enviarDatos() {
-            let datos = {
-                tamanioCuadricula: Number(document.getElementById('tamanio').value),
-                velAnimacion: Number(document.getElementById('velocidad').value),
-                opacidadFiltro: Number(document.getElementById('filtro').value),
-                rotacionImagen: Number(document.getElementById('rotacion').value)
-            };
+            // Usamos un debounce muy corto para no saturar Firebase al arrastrar
+            clearTimeout(timeoutEnvio);
+            timeoutEnvio = setTimeout(() => {
+                let datos = {
+                    tamanioCuadricula: Number(document.getElementById('tamanio').value),
+                    velAnimacion: Number(document.getElementById('velocidad').value),
+                    opacidadFiltro: Number(document.getElementById('filtro').value),
+                    rotacionImagen: Number(document.getElementById('rotacion').value),
+                    timestamp: Date.now() // <--- ESTO ES CLAVE: envía la señal de interacción real
+                };
 
-            fetch(FIREBASE_URL, {
-                method: "PUT",
-                body: JSON.stringify(datos)
-            });
+                fetch(FIREBASE_URL, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(datos)
+                });
+            }, 50); // 50ms de delay de envío
         }
     </script>
 </body>
