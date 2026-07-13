@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Laberinto de la Inocencia</title>
+    <title>Bitácora de Cuerpos Suspendidos</title>
     <style>
         body { 
-            background: #0d0c12; 
-            color: #e4ef00; 
+            background: #140f1e; /* Violeta denso base de tu paleta */
+            color: #d0d074; /* Amarillo manteca naíf vintage */
             font-family: 'Georgia', serif; 
             padding: 40px 20px; 
             text-align: center;
@@ -17,18 +17,20 @@
         h2 { 
             font-weight: 300; 
             font-style: italic;
-            color: #ff6afa; 
-            text-shadow: 0 0 10px rgba(255, 106, 250, 0.5);
+            color: #ff6afa; /* Lila encendido */
+            text-shadow: 0 0 10px rgba(255, 106, 250, 0.4);
             font-size: 1.8rem;
             margin-bottom: 5px;
         }
 
         .bajada {
-            color: #6ab4e1;
+            color: #729880; /* Verde pálido de las bolsas */
             font-size: 0.9rem;
             font-style: italic;
             margin-bottom: 50px;
-            opacity: 0.8;
+            opacity: 0.9;
+            padding: 0 10px;
+            line-height: 1.4;
         }
 
         .control { 
@@ -60,9 +62,9 @@
             width: 18px;
             height: 18px;
             border-radius: 50%;
-            background: #ff781e;
+            background: #a6690e; /* Ocre/Oro de la paleta */
             cursor: pointer;
-            box-shadow: 0 0 8px #ff781e, 0 0 15px #ff6afa;
+            box-shadow: 0 0 8px #a6690e, 0 0 15px #ff6afa;
             transition: transform 0.1s;
         }
 
@@ -84,33 +86,42 @@
 </head>
 <body>
 
-    <h2>Fly</h2>
-    <div class="bajada">Un instante suspendido entre la mirada del mundo y el deseo de desaparecer.</div>
+    <h2>Un registro de cuerpos suspendidos</h2>
+    <div class="bajada">¿Cuánto pesan los brazos cuando decidimos no tocar la tierra? Intervení la marea de la danza.</div>
 
     <div class="control">
-        <label>La mirada ajena</label>
-        <input type="range" id="mirada" min="1" max="15" value="5" oninput="enviarDatos()">
+        <label>La densidad del espacio</label>
+        <input type="range" id="mirada" min="1" max="10" value="5" oninput="enviarDatos()">
         <div class="metaforas">
-            <span>Estructura</span>
-            <span>Incomoda</span>
+            <span>Cuerpo entero</span>
+            <span>Fragmentos</span>
         </div>
     </div>
 
     <div class="control">
-        <label>El tiempo</label>
-        <input type="range" id="ritmo" min="2" max="60" value="10" oninput="enviarDatos()">
+        <label>La cadencia de la caída</label>
+        <input type="range" id="ritmo" min="2" max="25" value="10" oninput="enviarDatos()">
         <div class="metaforas">
-            <span>Es una urgencia</span>
-            <span>Es suspensible</span>
+            <span>Vértigo</span>
+            <span>Suspensión</span>
         </div>
     </div>
 
     <div class="control">
-        <label>Frente al cambio</label>
-        <input type="range" id="imaginario" min="1" max="8" value="3" step="0.5" oninput="enviarDatos()">
+        <label>La maduración de la paleta</label>
+        <input type="range" id="imaginario" min="1" max="10" value="3" step="0.5" oninput="enviarDatos()">
         <div class="metaforas">
-            <span>Me aferro</span>
-            <span>Decido soltar</span>
+            <span>Tono Original</span>
+            <span>Atardecer Saturado</span>
+        </div>
+    </div>
+
+    <div class="control">
+        <label>El eje del equilibrio</label>
+        <input type="range" id="rotacion" min="0" max="10" value="0" step="0.1" oninput="enviarDatos()">
+        <div class="metaforas">
+            <span>Raíces quietas</span>
+            <span>Giro onírico</span>
         </div>
     </div>
 
@@ -119,10 +130,10 @@
 
         function enviarDatos() {
             let datos = {
-                // Mantenemos los mismos nombres técnicos por detrás para que p5.js los entienda
-                miradaAdulta: Number(document.getElementById('mirada').value),
-                ritmoDelJuego: Number(document.getElementById('ritmo').value),
-                fuerzaImaginario: Number(document.getElementById('imaginario').value)
+                tamanioCuadricula: Number(document.getElementById('mirada').value),
+                velAnimacion: Number(document.getElementById('ritmo').value),
+                opacidadFiltro: Number(document.getElementById('imaginario').value),
+                rotacionImagen: Number(document.getElementById('rotacion').value)
             };
 
             fetch(FIREBASE_URL, {
