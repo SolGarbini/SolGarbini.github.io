@@ -7,12 +7,12 @@
     <style>
         :root {
             --bg-color: #000000;       
-            --title-color: #ff36a2;
+            --title-color: #22dc25;
             --subtitle-color: #ef93c5; 
-            --text-color: #9f7ffe;  
+            --text-color: #6d78ff;  
             --text-accent: #afa8c6;  
-            --slider-thumb: #5229e6;  
-            --slider-active: #8260fe;  
+            --slider-thumb: #303899;  
+            --slider-active: #707af3;  
         }
 
         /* Reset y Lienzo de Fondo */
@@ -79,7 +79,7 @@
 
         label {
             display: block;
-            font-size: 1rem;
+            font-size: 0.7rem;
             color: var(--text-color);
             margin-bottom: 12px;
             text-align: center;
@@ -165,8 +165,7 @@
     <div class="narrativa-contenedor">
         
         <div class="control">
-            <label>Camino por la sala y siento que</label>
-            <label>el espacio a mi alrededor está</label>
+            <label>Camino por la sala y siento que el<br>espacio a mi alrededor está</label>
             <input type="range" id="espacio" min="1" max="10" value="5.5" step="0.5" oninput="actualizarInterfaz()">
             <div class="metaforas">
                 <span>Vacío</span>
@@ -193,7 +192,7 @@
         </div>
 
         <div class="control">
-            <label>Siempre con la cabeza erguida, ¿es una tiranía que debo romper?</label>
+            <label>Siempre con la cabeza erguida,<br>¿es una tiranía que debo romper?</label>
             <input type="range" id="rotacion" min="1" max="10" value="5.5" step="0.5" oninput="actualizarInterfaz()">
             <div class="metaforas">
             </div>
