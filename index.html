@@ -6,13 +6,13 @@
     <title>Anatomía de una suspensión</title>
     <style>
         :root {
-            --bg-color: #0A0413;       
-            --title-color: #D96215;    
-            --text-color: #F4EFE6;     /* Tu Beige Hueso casi blanco (reemplaza al rosa) */
-            --accent-green: #14421A;   /* Tu Verde Oscuro y Seco */
-            --accent-yellow: #F0E3B3;  /* Tu Amarillo Arena claro */
-            --slider-thumb: #6A90A3;   /* Tu Azul Acero / Celeste */
-            --slider-active: #98C1D9;  /* Celeste brillante para el toque */
+            --bg-color: #000000;       
+            --title-color: #aa1441;    
+            --text-color: #A69183;   
+            --accent-green: #31733A;   
+            --accent-yellow: #786A61;  
+            --slider-thumb: #3C5BC9;  
+            --slider-active: #778FE6;  
         }
 
         /* Reset y Lienzo de Fondo */
@@ -88,7 +88,7 @@
         input[type=range] { 
             -webkit-appearance: none;
             width: 90%; 
-            background: rgba(106, 144, 163, 0.15); /* Opacidad de tu azul acero */
+            background: rgba(106, 144, 163, 0.15);
             height: 2px;
             outline: none;
             margin: 5px auto 0 auto;
@@ -147,7 +147,7 @@
         .creditos {
             text-align: center;
             font-size: 0.7rem;
-            color: rgba(244, 239, 230, 0.3); /* Tu beige con opacidad */
+            color: rgba(244, 239, 230, 0.3);
             margin-top: 60px;
             letter-spacing: 1px;
             line-height: 1.4;
@@ -231,7 +231,7 @@
         const FIREBASE_URL = "https://final-labo-1-default-rtdb.firebaseio.com/interaccion.json";
         let timeoutEnvio;
 
-        // --- SISTEMA DE ESTRELLAS POÉTICAS (Canvas) ---
+        // --- SISTEMA DE ESTRELLAS ---
         const canvas = document.getElementById('starfield');
         const ctx = canvas.getContext('2d');
         let stars = [];
@@ -269,7 +269,7 @@
 
                     ctx.beginPath();
                     ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(244, 239, 230, ${alpha})`; // Estrellas color beige cálido sutil
+                    ctx.fillStyle = `rgba(244, 239, 230, ${alpha})`;
                     ctx.shadowBlur = 3;
                     ctx.shadowColor = "#F4EFE6";
                     ctx.fill();
@@ -284,33 +284,29 @@
             return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
         }
 
-        // --- ACTUALIZACIÓN DE LA INTERFAZ Y FIREBASE ---
         function actualizarInterfaz() {
             let valPaleta = Number(document.getElementById('paleta').value);
             let r, g, b;
             
-            // LÓGICA DE DEGRADÉ TRIPARTITO (Sutil y oscura)
-            // 1-4: Violeta Oscuro Noche (#0A0413)
-            // 5-6: Marrón Arcilla Fotográfico (#2E211A)
-            // 7-10: Verde Té Seco Oscuro (#121914)
+            // LÓGICA DE DEGRADÉ TRIPARTITO
+            // 1-4: Violeta Oscuro Noche (#0a0118)
+            // 5-6: Azul Noche (#080630)
+            // 7-10: Verde Noche (#071d27)
             
             if (valPaleta <= 5) {
-                // Transición del Violeta Noche (1) al Marrón Arcilla (5)
                 let pct = (valPaleta - 1) / 4;
-                r = Math.floor(lerpVal(10, 46, pct));
-                g = Math.floor(lerpVal(4, 33, pct));
-                b = Math.floor(lerpVal(19, 26, pct));
+                r = Math.floor(lerpVal(08, 46, pct));
+                g = Math.floor(lerpVal(06, 33, pct));
+                b = Math.floor(lerpVal(30, 26, pct));
             } else {
-                // Transición del Marrón Arcilla (5) al Verde Té Seco Oscuro (10)
                 let pct = (valPaleta - 5) / 5;
-                r = Math.floor(lerpVal(1, 18, pct));
-                g = Math.floor(lerpVal(32, 25, pct));
-                b = Math.floor(lerpVal(10, 20, pct));
+                r = Math.floor(lerpVal(7, 18, pct));
+                g = Math.floor(lerpVal(29, 25, pct));
+                b = Math.floor(lerpVal(39, 20, pct));
             }
             
             document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 
-            // Debounce para enviar datos
             clearTimeout(timeoutEnvio);
             timeoutEnvio = setTimeout(() => {
                 let datos = {
