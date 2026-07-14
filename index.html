@@ -5,142 +5,214 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anatomía de una suspensión</title>
     <style>
-        body { 
-            background: #0d0c12; 
-            color: #d8cba9; 
-            font-family: 'Georgia', serif; 
-            padding: 40px 20px; 
-            text-align: center;
-            letter-spacing: 1px;
-            line-height: 1.6;
-        }
-        
-        h2 { 
-            font-weight: 300; 
-            font-style: italic;
-            color: #d4a373; 
-            font-size: 1.6rem;
-            margin-bottom: 5px;
+        :root {
+            --bg-color: #120e16; /* Violeta profundo de base */
+            --title-color: #d4a373; /* Naranja/Ocre sutil */
+            --text-color: #eae5d9;
+            --accent-green: #729880;
+            --accent-yellow: #e9c46a;
         }
 
-        .bajada {
-            color: #729880; 
-            font-size: 0.9rem;
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            font-family: 'Georgia', serif; 
+            padding: 40px 20px; 
+            text-align: left;
+            letter-spacing: 0.5px;
+            line-height: 1.8;
+            max-width: 480px;
+            margin: 0 auto;
+            transition: background-color 0.6s ease; /* Transición suave de color */
+        }
+        
+        h1 { 
+            font-weight: 300; 
             font-style: italic;
-            margin-bottom: 50px;
-            opacity: 0.8;
-            padding: 0 15px;
+            color: var(--title-color); 
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .subtitulo {
+            color: var(--accent-green); 
+            font-size: 0.85rem;
+            font-style: italic;
+            margin-bottom: 45px;
+            text-align: center;
+            opacity: 0.9;
+        }
+
+        .narrativa-contenedor {
+            background: rgba(25, 20, 32, 0.4);
+            padding: 25px;
+            border-radius: 4px;
+            border: 1px solid rgba(212, 163, 115, 0.1);
         }
 
         .control { 
-            margin-bottom: 55px; 
+            margin-bottom: 45px; 
         }
 
         label {
-            font-size: 1rem;
-            color: #eae5d9;
             display: block;
-            margin-bottom: 15px;
+            font-size: 1.05rem;
+            color: var(--text-color);
+            margin-bottom: 12px;
         }
 
         input[type=range] { 
             -webkit-appearance: none;
-            width: 85%; 
-            max-width: 320px; 
-            background: rgba(114, 152, 128, 0.2);
-            height: 3px;
+            width: 100%; 
+            background: rgba(233, 196, 106, 0.15);
+            height: 2px;
             outline: none;
+            margin-top: 5px;
         }
 
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 14px;
-            height: 14px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background: #d4a373; 
+            background: var(--title-color); 
             cursor: pointer;
-            box-shadow: 0 0 8px rgba(212, 163, 115, 0.6);
         }
 
         .metaforas {
             display: flex;
             justify-content: space-between;
-            width: 85%;
-            max-width: 320px;
-            margin: 8px auto 0 auto;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: #8c8270;
+            margin-top: 8px;
             font-style: italic;
+        }
+
+        .cierre-poema {
+            font-style: italic;
+            text-align: center;
+            margin: 40px 0 20px 0;
+            color: var(--accent-green);
+            font-size: 0.95rem;
+        }
+
+        .creditos {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #5c5566;
+            margin-top: 60px;
+            letter-spacing: 1px;
+            line-height: 1.4;
         }
     </style>
 </head>
 <body>
 
-    <h2>Anatomía de una suspensión</h2>
-    <div class="bajada">¿Cómo se siente habitar un cuerpo que flota? Intervení el archivo de la danza.</div>
+    <h1>Anatomía de una suspensión</h1>
+    <div class="subtitulo">"Escribo con el cuerpo que no sabe dónde ubicarse."</div>
 
-    <div class="control">
-        <label>¿Cómo percibís tu propio peso hoy?</label>
-        <input type="range" id="tamanio" min="1" max="10" value="4" oninput="enviarDatos()">
-        <div class="metaforas">
-            <span>Sólido y compacto</span>
-            <span>Leve e ingrávido</span>
+    <div class="narrativa-contenedor">
+        
+        <div class="control">
+            <label>Camino por la sala y siento que el espacio a mi alrededor está</label>
+            <input type="range" id="espacio" min="1" max="10" value="4" oninput="actualizarInterfaz()">
+            <div class="metaforas">
+                <span>Vacío</span>
+                <span>Repleto</span>
+            </div>
+        </div>
+
+        <div class="control">
+            <label>En el fondo, algo capta mi atención.</label>
+            <input type="range" id="atencion" min="1" max="10" value="5" step="0.5" oninput="actualizarInterfaz()">
+            <div class="metaforas">
+                <span>Es la multiplicidad de cuerpos que danzan.</span>
+                <span>Es ella que baila tímidamente entre las demás.</span>
+            </div>
+        </div>
+
+        <div class="control">
+            <label>En mi mente</label>
+            <input type="range" id="velocidad" min="1" max="10" value="5" oninput="actualizarInterfaz()">
+            <div class="metaforas">
+                <span>Postergo los pasos que marca con libertad.</span>
+                <span>La impaciencia es su afinidad.</span>
+            </div>
+        </div>
+
+        <div class="control">
+            <label>¿Está mostrándome todo de ella o hay algo más por ver?</label>
+            <input type="range" id="rotacion" min="1" max="10" value="1" step="1" oninput="actualizarInterfaz()">
+            <div class="metaforas">
+                <span>?</span>
+                <span>??</span>
+            </div>
+        </div>
+
+        <div class="control">
+            <label>A veces, el entorno se tiñe de un tono cambiante,</label>
+            <input type="range" id="paleta" min="1" max="10" value="1" step="1" oninput="actualizarInterfaz()">
+            <div class="metaforas">
+                <span>como un refugio antiguo</span>
+                <span>o una interferencia eléctrica</span>
+            </div>
+        </div>
+
+        <div class="control">
+            <label>mientras los fragmentos del archivo intentan permanecer</label>
+            <input type="range" id="espejo" min="1" max="10" value="1" step="1" oninput="actualizarInterfaz()">
+            <div class="metaforas">
+                <span>en su lugar original.</span>
+                <span>fuera de orden.</span>
+            </div>
+        </div>
+
+        <div class="cierre-poema">
+            Los ojos ajenos continúan esperando la caída.
         </div>
     </div>
 
-    <div class="control">
-        <label>¿A qué velocidad cae un recuerdo?</label>
-        <input type="range" id="velocidad" min="1" max="10" value="5" oninput="enviarDatos()">
-        <div class="metaforas">
-            <span>Un abismo rápido</span>
-            <span>Una caída pausada</span>
-        </div>
-    </div>
-
-    <div class="control">
-        <label>¿Qué tan cerca querés estar de esta danza?</label>
-        <input type="range" id="filtro" min="1" max="10" value="5" step="0.5" oninput="enviarDatos()">
-        <div class="metaforas">
-            <span>Mimetizarse en el fondo</span>
-            <span>Aproximarse al detalle</span>
-        </div>
-    </div>
-
-    <div class="control">
-        <label>¿Cuál es la textura de tu entorno?</label>
-        <input type="range" id="rotacion" min="1" max="10" value="1" step="1" oninput="enviarDatos()">
-        <div class="metaforas">
-            <span>Tierra y Hueso</span>
-            <span>Verde Té</span>
-            <span>Violeta Penumbra</span>
-        </div>
+    <div class="creditos">
+        ELIZABETH PONCE, MIA JAIME, SOL GARBINI<br>
+        Instalación interactiva — UNTREF 2026
     </div>
 
     <script>
         const FIREBASE_URL = "https://final-labo-1-default-rtdb.firebaseio.com/interaccion.json";
         let timeoutEnvio;
 
-        function enviarDatos() {
-            // Usamos un debounce muy corto para no saturar Firebase al arrastrar
+        function actualizarInterfaz() {
+            // 1. Modificar dinámicamente el color de fondo del celular basado en las decisiones
+            let vVel = Number(document.getElementById('velocidad').value);
+            let vPal = Number(document.getElementById('paleta').value);
+            
+            // Calculamos un tono variable entre violeta oscuro, azul de penumbra y rojo sutil
+            let r = Math.floor(18 + (vPal * 4));
+            let g = Math.floor(14 + (vVel * 2));
+            let b = Math.floor(22 + (vPal * 2));
+            
+            document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+
             clearTimeout(timeoutEnvio);
             timeoutEnvio = setTimeout(() => {
                 let datos = {
-                    tamanioCuadricula: Number(document.getElementById('tamanio').value),
-                    velAnimacion: Number(document.getElementById('velocidad').value),
-                    opacidadFiltro: Number(document.getElementById('filtro').value),
+                    tamanioCuadricula: Number(document.getElementById('espacio').value),
+                    tamanioPrincipal: Number(document.getElementById('atencion').value),
+                    velFotograma: Number(document.getElementById('velocidad').value),
                     rotacionImagen: Number(document.getElementById('rotacion').value),
-                    timestamp: Date.now() // <--- ESTO ES CLAVE: envía la señal de interacción real
+                    paletaColor: Number(document.getElementById('paleta').value),
+                    espejadoAzar: Number(document.getElementById('espejo').value),
+                    timestamp: Date.now()
                 };
 
                 fetch(FIREBASE_URL, {
                     method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(datos)
                 });
-            }, 50); // 50ms de delay de envío
+            }, 50);
         }
     </script>
 </body>
