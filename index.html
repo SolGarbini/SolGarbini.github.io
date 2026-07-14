@@ -7,11 +7,11 @@
     <style>
         :root {
             --bg-color: #000000;       
-            --title-color: #de681b;
-            --subtitle-color: #cb4646; 
-            --text-color: #cca47c;  
-            --text-accent: #b4916e;  
-            --slider-thumb: #a04c4c;  
+            --title-color: #3711BF;
+            --subtitle-color: #412d8c; 
+            --text-color: #c2b6ef;  
+            --text-accent: #afa8c6;  
+            --slider-thumb: #9b2f2f;  
             --slider-active: #F24B4B;  
         }
 
@@ -34,7 +34,7 @@
             margin: 0 auto;
             position: relative;
             min-height: 100vh;
-            transition: background-color 1.2s ease; /* Transición ligeramente más lenta para mayor sutileza */
+            transition: background-color 1.2s ease; /* Transición súper sutil para la metamorfosis de fondo */
             overflow-x: hidden;
         }
 
@@ -124,10 +124,12 @@
             text-align: center;
         }
 
-        /* Alineación central para los límites de texto corto */
+        /* Alineación central para las metáforas */
         .metaforas span {
             flex: 1;
             text-align: center;
+            line-height: 1.3;
+            padding: 0 4px;
         }
         .metaforas span:first-child {
             text-align: left;
@@ -165,7 +167,7 @@
         
         <div class="control">
             <label>Camino por la sala y siento que el espacio a mi alrededor está</label>
-            <input type="range" id="espacio" min="1" max="10" value="5" oninput="actualizarInterfaz()">
+            <input type="range" id="espacio" min="1" max="10" value="5.5" step="0.5" oninput="actualizarInterfaz()">
             <div class="metaforas">
                 <span>Vacío</span>
                 <span>Repleto</span>
@@ -183,7 +185,7 @@
 
         <div class="control">
             <label>En mi mente</label>
-            <input type="range" id="velocidad" min="1" max="10" value="5" oninput="actualizarInterfaz()">
+            <input type="range" id="velocidad" min="1" max="10" value="5.5" step="0.5" oninput="actualizarInterfaz()">
             <div class="metaforas">
                 <span>Postergo los pasos que marca con libertad.</span>
                 <span>La impaciencia es su afinidad.</span>
@@ -191,29 +193,29 @@
         </div>
 
         <div class="control">
-            <label>¿Está mostrándome todo de ella o hay algo más por ver?</label>
-            <input type="range" id="rotacion" min="1" max="10" value="1" step="1" oninput="actualizarInterfaz()">
+            <label>Giro la cabeza intentando enderezar la mirada, o tal vez</label>
+            <input type="range" id="rotacion" min="1" max="10" value="5.5" step="0.5" oninput="actualizarInterfaz()">
             <div class="metaforas">
-                <span>?</span>
-                <span>??</span>
+                <span>busco descubrir un reverso oculto en la imagen.</span>
+                <span>prefiero suspender el eje y dejarme caer de costado.</span>
             </div>
         </div>
 
         <div class="control">
-            <label>A veces, el entorno se tiñe de un tono cambiante,</label>
-            <input type="range" id="paleta" min="1" max="10" value="5" step="1" oninput="actualizarInterfaz()">
+            <label>Observo el tono de este cielo y me pregunto si sigo siendo quien cruzó esa puerta,</label>
+            <input type="range" id="paleta" min="1" max="10" value="5.5" step="0.5" oninput="actualizarInterfaz()">
             <div class="metaforas">
-                <span>como un refugio antiguo</span>
-                <span>o una interferencia eléctrica</span>
+                <span>con la certeza de sostener una mirada intacta,</span>
+                <span>o si la intemperie de la obra ya me ha modificado,</span>
             </div>
         </div>
 
         <div class="control">
-            <label>mientras los fragmentos del archivo intentan permanecer</label>
-            <input type="range" id="espejo" min="1" max="10" value="1" step="1" oninput="actualizarInterfaz()">
+            <label>mientras los fragmentos que flotan en el aire intentan</label>
+            <input type="range" id="espejo" min="1" max="10" value="5.5" step="0.5" oninput="actualizarInterfaz()">
             <div class="metaforas">
-                <span>en su lugar original.</span>
-                <span>fuera de todo orden.</span>
+                <span>permanecer bajo el peso de su orden original.</span>
+                <span>desarmarse para dar lugar a una nueva anatomía.</span>
             </div>
         </div>
 
@@ -288,21 +290,21 @@
             let valPaleta = Number(document.getElementById('paleta').value);
             let r, g, b;
             
-            // NUEVA LÓGICA DE DEGRADÉ CELESTE/VIOLETA OSCURO SUTIL
+            // LÓGICA DE DEGRADÉ CORREGIDA (Valores visibles pero muy oscuros)
             // 1: Negro Puro (#000000)
-            // 5: Violeta casi Negro (#0B0214)
-            // 10: Azul casi Noche (#050B1C)
+            // 5.5: Violeta místico muy oscuro (#140526)
+            // 10: Azul noche apagado (#08142E)
             
-            if (valPaleta <= 5) {
-                let pct = (valPaleta - 1) / 4;
-                r = Math.floor(lerpVal(0, 11, pct));
-                g = Math.floor(lerpVal(0, 2, pct));
-                b = Math.floor(lerpVal(0, 20, pct));
+            if (valPaleta <= 5.5) {
+                let pct = (valPaleta - 1) / 4.5;
+                r = Math.floor(lerpVal(0, 20, pct));
+                g = Math.floor(lerpVal(0, 5, pct));
+                b = Math.floor(lerpVal(0, 38, pct));
             } else {
-                let pct = (valPaleta - 5) / 5;
-                r = Math.floor(lerpVal(11, 5, pct));
-                g = Math.floor(lerpVal(2, 11, pct));
-                b = Math.floor(lerpVal(20, 28, pct));
+                let pct = (valPaleta - 5.5) / 4.5;
+                r = Math.floor(lerpVal(20, 8, pct));
+                g = Math.floor(lerpVal(5, 20, pct));
+                b = Math.floor(lerpVal(38, 46, pct));
             }
             
             document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
@@ -331,7 +333,7 @@
             return (1 - amt) * start + amt * end;
         }
 
-        // Ejecutar los cálculos de color y renderizado inicial apenas abre la web
+        // Carga inicial sincronizada en el centro
         window.onload = function() {
             actualizarInterfaz();
         };
