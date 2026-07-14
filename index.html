@@ -165,7 +165,7 @@
         
         <div class="control">
             <label>Camino por la sala y siento que el espacio a mi alrededor está</label>
-            <input type="range" id="espacio" min="1" max="10" value="4" oninput="actualizarInterfaz()">
+            <input type="range" id="espacio" min="1" max="10" value="5" oninput="actualizarInterfaz()">
             <div class="metaforas">
                 <span>Vacío</span>
                 <span>Repleto</span>
@@ -174,7 +174,7 @@
 
         <div class="control">
             <label>En el fondo, algo capta mi atención.</label>
-            <input type="range" id="atencion" min="1" max="10" value="5" step="0.5" oninput="actualizarInterfaz()">
+            <input type="range" id="atencion" min="1" max="10" value="5.5" step="0.5" oninput="actualizarInterfaz()">
             <div class="metaforas">
                 <span>Es la multiplicidad de cuerpos que danzan.</span>
                 <span>Es ella que baila tímidamente entre las demás.</span>
@@ -223,8 +223,8 @@
     </div>
 
     <div class="creditos">
-        SOL GARBINI<br>
-        Instalación interactiva — 2026
+        ELIZABETH PONCE, MIA JAIME, SOL GARBINI<br>
+        Instalación interactiva — UNTREF 2026
     </div>
 
     <script>
@@ -330,6 +330,11 @@
         function lerpVal(start, end, amt) {
             return (1 - amt) * start + amt * end;
         }
+
+        // Ejecutar los cálculos de color y renderizado inicial apenas abre la web
+        window.onload = function() {
+            actualizarInterfaz();
+        };
     </script>
 </body>
 </html>
