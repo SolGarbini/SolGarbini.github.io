@@ -6,24 +6,45 @@
     <title>Anatomía de una suspensión</title>
     <style>
         :root {
-            --bg-color: #120e16; /* Violeta profundo de base */
-            --title-color: #d4a373; /* Naranja/Ocre sutil */
-            --text-color: #eae5d9;
-            --accent-green: #729880;
-            --accent-yellow: #e9c46a;
+            --bg-color: #1E0747;      
+            --title-color: #D96215;   
+            --text-color: #FF99D2;   
+            --accent-green: #AAE84F;  
+            --accent-yellow: #E6CB3C;
+        }
+
+        /* Reset y Lienzo de Fondo */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body { 
             background-color: var(--bg-color); 
             color: var(--text-color); 
             font-family: 'Georgia', serif; 
-            padding: 40px 20px; 
-            text-align: left;
+            padding: 40px 24px; 
+            text-align: center;
             letter-spacing: 0.5px;
             line-height: 1.8;
             max-width: 480px;
             margin: 0 auto;
-            transition: background-color 0.6s ease; /* Transición suave de color */
+            position: relative;
+            min-height: 100vh;
+            transition: background-color 0.8s ease;
+            overflow-x: hidden;
+        }
+
+        /* Canvas de estrellas de fondo */
+        #starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
         }
         
         h1 { 
@@ -45,14 +66,13 @@
         }
 
         .narrativa-contenedor {
-            background: rgba(25, 20, 32, 0.4);
-            padding: 25px;
-            border-radius: 4px;
-            border: 1px solid rgba(212, 163, 115, 0.1);
+            width: 100%;
+            background: transparent;
         }
 
         .control { 
             margin-bottom: 45px; 
+            text-align: center;
         }
 
         label {
@@ -60,34 +80,57 @@
             font-size: 1.05rem;
             color: var(--text-color);
             margin-bottom: 12px;
+            text-align: center;
         }
 
         input[type=range] { 
             -webkit-appearance: none;
-            width: 100%; 
-            background: rgba(233, 196, 106, 0.15);
+            width: 90%; 
+            background: rgba(170, 232, 79, 0.15); /* Opacidad de tu verde de acento */
             height: 2px;
             outline: none;
-            margin-top: 5px;
+            margin: 5px auto 0 auto;
+            display: block;
         }
 
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 12px;
-            height: 12px;
+            width: 16px; /* Bolilla más grande */
+            height: 16px;
             border-radius: 50%;
             background: var(--title-color); 
             cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        /* Iluminación de la bolilla al interactuar */
+        input[type=range]::-webkit-slider-thumb:active {
+            transform: scale(1.35);
+            box-shadow: 0 0 12px var(--title-color);
         }
 
         .metaforas {
             display: flex;
             justify-content: space-between;
+            width: 90%;
+            margin: 8px auto 0 auto;
             font-size: 0.8rem;
-            color: #8c8270;
-            margin-top: 8px;
+            color: var(--accent-yellow);
             font-style: italic;
+            text-align: center;
+        }
+
+        /* Alineación central para los límites de texto corto */
+        .metaforas span {
+            flex: 1;
+            text-align: center;
+        }
+        .metaforas span:first-child {
+            text-align: left;
+        }
+        .metaforas span:last-child {
+            text-align: right;
         }
 
         .cierre-poema {
@@ -101,7 +144,7 @@
         .creditos {
             text-align: center;
             font-size: 0.7rem;
-            color: #5c5566;
+            color: rgba(255, 153, 210, 0.4); /* Tu rosa con opacidad */
             margin-top: 60px;
             letter-spacing: 1px;
             line-height: 1.4;
@@ -109,6 +152,8 @@
     </style>
 </head>
 <body>
+
+    <canvas id="starfield"></canvas>
 
     <h1>Anatomía de una suspensión</h1>
     <div class="subtitulo">"Escribo con el cuerpo que no sabe dónde ubicarse."</div>
@@ -183,18 +228,78 @@
         const FIREBASE_URL = "https://final-labo-1-default-rtdb.firebaseio.com/interaccion.json";
         let timeoutEnvio;
 
-        function actualizarInterfaz() {
-            // 1. Modificar dinámicamente el color de fondo del celular basado en las decisiones
-            let vVel = Number(document.getElementById('velocidad').value);
-            let vPal = Number(document.getElementById('paleta').value);
+        // --- SISTEMA DE ESTRELLAS POÉTICAS (Canvas) ---
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Inicializamos 60 posiciones de estrellas ocultas
+        for (let i = 0; i < 60; i++) {
+            stars.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                size: Math.random() * 1.8 + 0.4,
+                phase: Math.random() * Math.PI * 2
+            });
+        }
+
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Calculamos un tono variable entre violeta oscuro, azul de penumbra y rojo sutil
-            let r = Math.floor(18 + (vPal * 4));
-            let g = Math.floor(14 + (vVel * 2));
-            let b = Math.floor(22 + (vPal * 2));
+            // Leemos los controles para el efecto dinámico
+            let valAtencion = Number(document.getElementById('atencion').value); // Control 2: Cantidad/Brillo
+            let valVelocidad = Number(document.getElementById('velocidad').value); // Control 3: Parpadeo
+
+            // Mapeamos para que la opacidad general de las estrellas dependa del slider 2
+            let opacidadMaxima = mapValue(valAtencion, 1, 10, 0.0, 0.7);
+            // La velocidad del paso del tiempo interno del parpadeo depende del slider 3
+            let velocidadParpadeo = mapValue(valVelocidad, 1, 10, 0.02, 0.15);
+
+            if (opacidadMaxima > 0.01) {
+                stars.forEach(star => {
+                    star.phase += velocidadParpadeo;
+                    // Oscilación senoidal suave para simular el brillo difuso de una estrella
+                    let brillo = (Math.sin(star.phase) + 1) / 2; 
+                    let alpha = brillo * opacidadMaxima;
+
+                    ctx.beginPath();
+                    ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+                    ctx.shadowBlur = 4;
+                    ctx.shadowColor = "white";
+                    ctx.fill();
+                });
+            }
+            ctx.shadowBlur = 0; // Reset shadow
+            requestAnimationFrame(drawStars);
+        }
+        requestAnimationFrame(drawStars);
+
+        function mapValue(value, istart, istop, ostart, ostop) {
+            return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
+        }
+
+        // --- ACTUALIZACIÓN DE LA INTERFAZ Y FIREBASE ---
+        function actualizarInterfaz() {
+            let valPaleta = Number(document.getElementById('paleta').value);
+            
+            // Variación sutil de color de fondo: se mantiene extremadamente oscuro y profundo
+            // Base: #1E0747 (30, 7, 71)
+            // Desplazamiento máximo hacia un azul profundo o un bordó místico muy sutil
+            let r = Math.floor(30 + (valPaleta * 1.5));
+            let g = Math.floor(7 - (valPaleta * 0.4));
+            let b = Math.floor(71 - (valPaleta * 2.0));
             
             document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 
+            // Debounce
             clearTimeout(timeoutEnvio);
             timeoutEnvio = setTimeout(() => {
                 let datos = {
@@ -202,7 +307,7 @@
                     tamanioPrincipal: Number(document.getElementById('atencion').value),
                     velFotograma: Number(document.getElementById('velocidad').value),
                     rotacionImagen: Number(document.getElementById('rotacion').value),
-                    paletaColor: Number(document.getElementById('paleta').value),
+                    paletaColor: valPaleta,
                     espejadoAzar: Number(document.getElementById('espejo').value),
                     timestamp: Date.now()
                 };
